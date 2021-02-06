@@ -1607,14 +1607,15 @@ end
 local UIToggle
 local UnlockMouse
 function library:Init()
-	
 	self.base = self.base or self:Create("ScreenGui")
 	if syn and syn.protect_gui then
 		syn.protect_gui(self.base)
 	elseif get_hidden_gui then
 		get_hidden_gui(self.base)
+    elseif gethui then
+        self.base.Parent = gethui();
 	else
-    print("Protect UI function missing, detection possible.")
+        print("Protect UI function missing, detection possible.")
 	end
 	self.base.Parent = game:GetService"CoreGui"
 	
