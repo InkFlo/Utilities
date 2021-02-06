@@ -282,7 +282,11 @@ function createToggle(option, parent)
 	function option:SetState(state)
 		library.flags[self.flag] = state
 		self.state = state
-		checkmarkHolder:TweenSize(option.state and UDim2.new(1, -8, 1, -8) or UDim2.new(0, 0, 1, -8), "Out", "Quad", 0.2, true)
+        if (option.state) then -- ScriptWare errors if you do it the "good" way?
+			checkmarkHolder:TweenSize(UDim2.new(1, -8, 1, -8));
+		else
+			checkmarkHolder:TweenSize(UDim2.new(0, 0, 1, -8), "Out", "Quad", 0.2, true);
+		end;
 		tweenService:Create(tickboxInner, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = state and Color3.fromRGB(255, 65, 65) or Color3.fromRGB(20, 20, 20)}):Play()
 		if state then
 			tweenService:Create(tickboxOutline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 65, 65)}):Play()
